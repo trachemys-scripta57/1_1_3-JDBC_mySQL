@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
-public class UserDaoJDBCImpl implements UserDao {
+public class UserDaoJDBCImpl {
     public static final String CREATE_USERS_TABLE = "create table if not exists user (" +
             "id BIGINT unsigned AUTO_INCREMENT PRIMARY KEY," +
             "name VARCHAR(15) NOT NULL," +
