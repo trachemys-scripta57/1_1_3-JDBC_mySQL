@@ -1,6 +1,6 @@
 package jm.task.core.jdbc.dao;
 
-import jm.task.core.jdbc.model.User;
+import jm.task.core.jdbc.dao.model.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -33,16 +33,28 @@ public class UserDaoJDBCImpl {
     public void createUsersTable() {
         try (PreparedStatement ps = connection.prepareStatement(CREATE_USERS_TABLE)) {
             ps.execute();
+            connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
+            try {
+                connection.rollback();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
         }
     }
 
     public void dropUsersTable() {
         try (PreparedStatement ps = connection.prepareStatement(DROP_USERS_TABLE)) {
             ps.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
+            connection.commit();
+        } catch (SQLException se) {
+            se.printStackTrace();
+            try {
+                connection.rollback();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -52,8 +64,14 @@ public class UserDaoJDBCImpl {
             ps.setString(2, lastName);
             ps.setInt(3, age);
             ps.execute();
+            connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
+            try {
+                connection.rollback();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
         }
     }
 
@@ -61,8 +79,14 @@ public class UserDaoJDBCImpl {
         try (PreparedStatement ps = connection.prepareStatement(REMOVE_USER)) {
             ps.setLong(1, id);
             ps.execute();
+            connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
+            try {
+                connection.rollback();
+            } catch (SQLException te) {
+                te.printStackTrace();
+            }
         }
     }
 
@@ -78,8 +102,15 @@ public class UserDaoJDBCImpl {
                 user.setAge(rs.getByte("age"));
                 users.add(user);
             }
+            rs.close();
+            connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
+            try {
+                connection.rollback();
+            } catch (SQLException re) {
+                re.printStackTrace();
+            }
         }
         return users;
     }
@@ -87,8 +118,14 @@ public class UserDaoJDBCImpl {
     public void cleanUsersTable() {
         try (PreparedStatement ps = connection.prepareStatement(CLEAN_USERS_TABLE)) {
             ps.execute();
+            ps.close();
         } catch (SQLException e) {
             e.printStackTrace();
+            try {
+                connection.rollback();
+            } catch (SQLException re) {
+                re.printStackTrace();
+            }
         }
     }
 }
