@@ -5,9 +5,17 @@ import jm.task.core.jdbc.dao.model.User;
 import jm.task.core.jdbc.service.UserService;
 import jm.task.core.jdbc.service.UserServiceImpl;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
+import java.util.logging.Logger;
+
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
+        final Logger LOGGER = Logger.getLogger(Main.class.getName());
+        System.setErr(new PrintStream(new File("iog.txt")));
+
         UserService userService = new UserServiceImpl();
         userService.createUsersTable();
 //        List<User> users = new ArrayList<>();
