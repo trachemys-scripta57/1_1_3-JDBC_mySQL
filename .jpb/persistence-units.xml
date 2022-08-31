@@ -2,7 +2,11 @@
 <project version="4">
   <component name="PersistenceUnitSettings">
     <persistence-units>
+<<<<<<< Updated upstream
       <persistence-unit name="1">
+=======
+      <persistence-unit name="Default">
+>>>>>>> Stashed changes
         <packages>
           <package value="" />
         </packages>
