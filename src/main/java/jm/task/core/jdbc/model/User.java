@@ -1,4 +1,4 @@
-package jm.task.core.jdbc.dao.model;
+package jm.task.core.jdbc.model;
 
 import javax.persistence.Column;
 import javax.persistence.Id;

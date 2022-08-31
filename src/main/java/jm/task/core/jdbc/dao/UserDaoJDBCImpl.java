@@ -1,6 +1,6 @@
 package jm.task.core.jdbc.dao;
 
-import jm.task.core.jdbc.dao.model.User;
+import jm.task.core.jdbc.model.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
-public class UserDaoJDBCImpl {
+public class UserDaoJDBCImpl implements UserDao {
     public static final String CREATE_USERS_TABLE = "create table if not exists user (" +
             "id BIGINT unsigned AUTO_INCREMENT PRIMARY KEY," +
             "name VARCHAR(15) NOT NULL," +
@@ -64,7 +64,10 @@ public class UserDaoJDBCImpl {
             ps.setString(2, lastName);
             ps.setInt(3, age);
             ps.execute();
+
             connection.commit();
+
+            System.out.println("User с именем - " + name + " добавлен в базу данных");
         } catch (SQLException e) {
             e.printStackTrace();
             try {
@@ -104,6 +107,7 @@ public class UserDaoJDBCImpl {
             }
             rs.close();
             connection.commit();
+
         } catch (SQLException e) {
             e.printStackTrace();
             try {
@@ -119,6 +123,7 @@ public class UserDaoJDBCImpl {
         try (PreparedStatement ps = connection.prepareStatement(CLEAN_USERS_TABLE)) {
             ps.execute();
             ps.close();
+            connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
             try {

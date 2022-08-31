@@ -1,4 +1,4 @@
-import jm.task.core.jdbc.dao.model.User;
+import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.service.UserService;
 import jm.task.core.jdbc.service.UserServiceImpl;
 import org.junit.Assert;
