@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     <list default="true" id="0c2cd2d1-efbc-4808-9e18-297f69b58665" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/src/main/java/jm/task/core/jdbc/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jm/task/core/jdbc/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/jm/task/core/jdbc/dao/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jm/task/core/jdbc/dao/UserDao.java" afterDir="false" />
@@ -27,6 +28,11 @@
       <change beforePath="$PROJECT_DIR$/target/classes/jm/task/core/jdbc/service/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/jm/task/core/jdbc/service/UserServiceImpl.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/jm/task/core/jdbc/util/Util.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/jm/task/core/jdbc/util/Util.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/UserServiceTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/UserServiceTest.class" afterDir="false" />
+>>>>>>> Stashed changes
+=======
+    <list default="true" id="0c2cd2d1-efbc-4808-9e18-297f69b58665" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jm/task/core/jdbc/service/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jm/task/core/jdbc/service/UserServiceImpl.java" afterDir="false" />
 >>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
