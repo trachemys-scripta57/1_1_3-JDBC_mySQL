@@ -33,16 +33,28 @@ public class UserDaoJDBCImpl implements UserDao {
     public void createUsersTable() {
         try (PreparedStatement ps = connection.prepareStatement(CREATE_USERS_TABLE)) {
             ps.execute();
+            connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
+            try {
+                connection.rollback();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
         }
     }
 
     public void dropUsersTable() {
         try (PreparedStatement ps = connection.prepareStatement(DROP_USERS_TABLE)) {
             ps.execute();
+            connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
+            try {
+                connection.rollback();
+            } catch (SQLException te) {
+                te.printStackTrace();
+            }
         }
     }
 
@@ -52,8 +64,18 @@ public class UserDaoJDBCImpl implements UserDao {
             ps.setString(2, lastName);
             ps.setInt(3, age);
             ps.execute();
+
+            connection.commit();
+
+            System.out.println("User с именем - " + name + " добавлен в базу данных");
+
         } catch (SQLException e) {
             e.printStackTrace();
+            try {
+                connection.rollback();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
         }
     }
 
@@ -61,8 +83,14 @@ public class UserDaoJDBCImpl implements UserDao {
         try (PreparedStatement ps = connection.prepareStatement(REMOVE_USER)) {
             ps.setLong(1, id);
             ps.execute();
+            connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
+            try {
+                connection.rollback();
+            } catch (SQLException te) {
+                te.printStackTrace();
+            }
         }
     }
 
@@ -78,8 +106,15 @@ public class UserDaoJDBCImpl implements UserDao {
                 user.setAge(rs.getByte("age"));
                 users.add(user);
             }
+            rs.close();
+            connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
+            try {
+                connection.rollback();
+            } catch (SQLException re) {
+                re.printStackTrace();
+            }
         }
         return users;
     }
@@ -87,8 +122,15 @@ public class UserDaoJDBCImpl implements UserDao {
     public void cleanUsersTable() {
         try (PreparedStatement ps = connection.prepareStatement(CLEAN_USERS_TABLE)) {
             ps.execute();
+            ps.close();
+            connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
+            try {
+                connection.rollback();
+            } catch (SQLException re) {
+                re.printStackTrace();
+            }
         }
     }
 }
