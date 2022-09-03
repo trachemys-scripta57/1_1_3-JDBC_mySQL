@@ -107,14 +107,8 @@ public class UserDaoJDBCImpl implements UserDao {
                 users.add(user);
             }
             rs.close();
-            connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
-            try {
-                connection.rollback();
-            } catch (SQLException re) {
-                re.printStackTrace();
-            }
         }
         return users;
     }
