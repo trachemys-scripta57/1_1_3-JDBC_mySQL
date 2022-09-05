@@ -34,12 +34,14 @@ public class UserDaoJDBCImpl implements UserDao {
         try (PreparedStatement ps = connection.prepareStatement(CREATE_USERS_TABLE)) {
             ps.execute();
             connection.commit();
+            System.out.println("Table had created");
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("Something went wrong when creating the table");
             try {
                 connection.rollback();
-            } catch (SQLException se) {
-                se.printStackTrace();
+            } catch (SQLException er) {
+                er.printStackTrace();
             }
         }
     }
@@ -48,8 +50,10 @@ public class UserDaoJDBCImpl implements UserDao {
         try (PreparedStatement ps = connection.prepareStatement(DROP_USERS_TABLE)) {
             ps.execute();
             connection.commit();
+            System.out.println("Table had deleted");
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("Something went wrong when deleting the table");
             try {
                 connection.rollback();
             } catch (SQLException te) {
@@ -64,28 +68,24 @@ public class UserDaoJDBCImpl implements UserDao {
             ps.setString(2, lastName);
             ps.setInt(3, age);
             ps.execute();
-
             connection.commit();
-
             System.out.println("User с именем - " + name + " добавлен в базу данных");
 
         } catch (SQLException e) {
             e.printStackTrace();
-            try {
-                connection.rollback();
-            } catch (SQLException se) {
-                se.printStackTrace();
-            }
+            System.out.println("Something went wrong when adding user to table");
         }
     }
 
     public void removeUserById(long id) {
         try (PreparedStatement ps = connection.prepareStatement(REMOVE_USER)) {
             ps.setLong(1, id);
-            ps.execute();
+            ps.executeUpdate();
             connection.commit();
+            System.out.println("User with id " + id + " had deleted from DB");
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("Something went wrong when deleting user by id from DB");
             try {
                 connection.rollback();
             } catch (SQLException te) {
@@ -98,6 +98,7 @@ public class UserDaoJDBCImpl implements UserDao {
         List<User> users = new LinkedList<>();
         try (PreparedStatement ps = connection.prepareStatement(GET_ALL_USERS)) {
             ResultSet rs = ps.executeQuery();
+
             while (rs.next()) {
                 User user = new User();
                 user.setId(rs.getLong("id"));
@@ -107,19 +108,27 @@ public class UserDaoJDBCImpl implements UserDao {
                 users.add(user);
             }
             rs.close();
+            connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
+            try {
+                connection.rollback();
+            } catch (SQLException es) {
+                es.printStackTrace();
+            }
         }
         return users;
     }
 
     public void cleanUsersTable() {
         try (PreparedStatement ps = connection.prepareStatement(CLEAN_USERS_TABLE)) {
-            ps.execute();
+            ps.executeUpdate();
             ps.close();
             connection.commit();
+            System.out.println("Table had cleaned");
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("Something went wrong when cleaning the table");
             try {
                 connection.rollback();
             } catch (SQLException re) {
