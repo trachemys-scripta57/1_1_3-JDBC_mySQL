@@ -38,11 +38,6 @@ public class UserDaoJDBCImpl implements UserDao {
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("Something went wrong when creating the table");
-            try {
-                connection.rollback();
-            } catch (SQLException er) {
-                er.printStackTrace();
-            }
         }
     }
 
@@ -98,7 +93,7 @@ public class UserDaoJDBCImpl implements UserDao {
         List<User> users = new LinkedList<>();
         try (PreparedStatement ps = connection.prepareStatement(GET_ALL_USERS)) {
             ResultSet rs = ps.executeQuery();
-
+            connection.commit();
             while (rs.next()) {
                 User user = new User();
                 user.setId(rs.getLong("id"));
@@ -107,15 +102,8 @@ public class UserDaoJDBCImpl implements UserDao {
                 user.setAge(rs.getByte("age"));
                 users.add(user);
             }
-            rs.close();
-            connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
-            try {
-                connection.rollback();
-            } catch (SQLException es) {
-                es.printStackTrace();
-            }
         }
         return users;
     }
